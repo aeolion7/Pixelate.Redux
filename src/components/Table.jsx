@@ -1,4 +1,5 @@
 import React from 'react';
+import TableRow from './TableRow.jsx';
 
 const Table = props => {
   return (
@@ -6,18 +7,12 @@ const Table = props => {
       <tbody>
         {props.grid.map((row, rowIndex) => {
           return (
-            <tr key={rowIndex}>
-              {row.map((color, cellIndex) => {
-                return (
-                  <td
-                    key={`${rowIndex}-${cellIndex}`}
-                    id={`${rowIndex}-${cellIndex}`}
-                    className={color}
-                    onClick={props.draw}
-                  />
-                );
-              })}
-            </tr>
+            <TableRow
+              key={rowIndex}
+              row={row}
+              rowIndex={rowIndex}
+              draw={props.draw}
+            />
           );
         })}
       </tbody>
