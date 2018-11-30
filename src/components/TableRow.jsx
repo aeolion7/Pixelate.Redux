@@ -1,16 +1,18 @@
 import React from 'react';
+import TableCell from './TableCell.jsx';
 
 const TableRow = props => {
   const rowIndex = props.rowIndex;
   return (
-    <tr key={rowIndex}>
+    <tr key={props.key}>
       {props.row.map((color, cellIndex) => {
         return (
-          <td
+          <TableCell
             key={`${rowIndex}-${cellIndex}`}
-            id={`${rowIndex}-${cellIndex}`}
-            className={color}
-            onClick={props.draw}
+            draw={props.draw}
+            rowIndex={rowIndex}
+            cellIndex={cellIndex}
+            color={color}
           />
         );
       })}
