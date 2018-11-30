@@ -1,15 +1,31 @@
 import React from 'react';
-import store, { addRow } from '../store';
+import store, { addRow, pickColor, draw } from '../store';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = store.getState();
     this.createNewRow = this.createNewRow.bind(this);
+    this.changeColor = this.changeColor.bind(this);
+    this.draw = this.draw.bind(this);
   }
 
   createNewRow() {
     store.dispatch(addRow());
+    this.setState(store.getState());
+  }
+
+  changeColor(event) {
+    store.dispatch(pickColor(event.target.value));
+    this.setState(store.getState());
+  }
+
+  draw(event) {
+    console.log(event);
+    const cord = event.target.id.split('-');
+    const row = cord[0];
+    const col = cord[1];
+    store.dispatch(draw(row, col));
     this.setState(store.getState());
   }
 
@@ -29,7 +45,7 @@ export default class App extends React.Component {
         <h1>Pixelate</h1>
         <div>
           <button id="add-row" onClick={this.createNewRow}>Add a row</button>
-          <select>
+          <select onChange={this.changeColor}>
             <option value="red">Red</option>
             <option value="orange">Orange</option>
             <option value="yellow">Yellow</option>
@@ -49,7 +65,12 @@ export default class App extends React.Component {
                 <tr key={rowIndex}>
                   {row.map((color, cellIndex) => {
                     return (
-                      <td key={`${rowIndex}-${cellIndex}`} className={color} />
+                      <td 
+                        key={`${rowIndex}-${cellIndex}`} 
+                        id={`${rowIndex}-${cellIndex}`} 
+                        className={color} 
+                        onClick={this.draw}
+                      />
                     );
                   })}
                 </tr>
