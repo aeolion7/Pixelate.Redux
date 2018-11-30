@@ -1,10 +1,16 @@
 import React from 'react';
-import store from '../store';
+import store, { addRow } from '../store';
 
 export default class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = store.getState();
+    this.createNewRow = this.createNewRow.bind(this);
+  }
+
+  createNewRow() {
+    store.dispatch(addRow());
+    this.setState(store.getState());
   }
 
   componentDidMount() {
@@ -22,7 +28,7 @@ export default class App extends React.Component {
       <div id="pixelate">
         <h1>Pixelate</h1>
         <div>
-          <button id="add-row">Add a row</button>
+          <button id="add-row" onClick={this.createNewRow}>Add a row</button>
           <select>
             <option value="red">Red</option>
             <option value="orange">Orange</option>
