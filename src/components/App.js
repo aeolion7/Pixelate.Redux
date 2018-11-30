@@ -41,8 +41,10 @@ export default class App extends React.Component {
             {this.state.grid.map((row, rowIndex) => {
               return (
                 <tr key={rowIndex}>
-                  {row.map((cell, cellIndex) => {
-                    return <td key={`${rowIndex}-${cellIndex}`} />;
+                  {row.map((color, cellIndex) => {
+                    return (
+                      <td key={`${rowIndex}-${cellIndex}`} className={color} />
+                    );
                   })}
                 </tr>
               );
