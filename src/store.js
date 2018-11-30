@@ -1,7 +1,9 @@
 import { createStore, applyMiddleware } from 'redux';
 import loggerMiddleware from 'redux-logger';
 
-const initialState = {};
+const initialState = {
+  grid: [Array(20).fill('')]
+};
 
 // ACTION TYPES
 /* we'll add some action types soon */

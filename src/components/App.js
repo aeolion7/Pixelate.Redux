@@ -36,7 +36,19 @@ export default class App extends React.Component {
             <option value="brown">Brown</option>
           </select>
         </div>
-        <table />
+        <table>
+          <tbody>
+            {this.state.grid.map((row, rowIndex) => {
+              return (
+                <tr key={rowIndex}>
+                  {row.map((cell, cellIndex) => {
+                    return <td key={`${rowIndex}-${cellIndex}`} />;
+                  })}
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
       </div>
     );
   }
