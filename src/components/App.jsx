@@ -1,5 +1,6 @@
 import React from 'react';
 import store, { addRow, pickColor, draw } from '../store';
+import Table from './Table.jsx';
 
 export default class App extends React.Component {
   constructor(props) {
@@ -58,26 +59,7 @@ export default class App extends React.Component {
             <option value="brown">Brown</option>
           </select>
         </div>
-        <table>
-          <tbody>
-            {this.state.grid.map((row, rowIndex) => {
-              return (
-                <tr key={rowIndex}>
-                  {row.map((color, cellIndex) => {
-                    return (
-                      <td 
-                        key={`${rowIndex}-${cellIndex}`} 
-                        id={`${rowIndex}-${cellIndex}`} 
-                        className={color} 
-                        onClick={this.draw}
-                      />
-                    );
-                  })}
-                </tr>
-              );
-            })}
-          </tbody>
-        </table>
+        <Table grid={this.state.grid} draw={this.draw} />
       </div>
     );
   }
