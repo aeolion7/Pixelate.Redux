@@ -1,14 +1,28 @@
-import React from 'react'
+import React from 'react';
+import store from '../store';
 
 export default class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = store.getState();
+  }
 
+  componentDidMount() {
+    this.unsubscribe = store.subscribe(() => {
+      this.setState(store.getState());
+    });
+  }
 
-  render () {
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  render() {
     return (
       <div id="pixelate">
         <h1>Pixelate</h1>
         <div>
-          <button id='add-row'>Add a row</button>
+          <button id="add-row">Add a row</button>
           <select>
             <option value="red">Red</option>
             <option value="orange">Orange</option>
@@ -22,9 +36,8 @@ export default class App extends React.Component {
             <option value="brown">Brown</option>
           </select>
         </div>
-        <table>
-        </table>
+        <table />
       </div>
-    )
-  }  
+    );
+  }
 }
